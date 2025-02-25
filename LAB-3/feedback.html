@@ -4,113 +4,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Feedback Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
             background-color: #f8f9fa;
+            padding: 20px;
         }
+        
         .feedback-form {
             background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
         }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #444;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+        
         .rating {
             display: flex;
+            flex-direction: row-reverse;
             justify-content: center;
-            gap: 8px;
+            gap: 0.5rem;
         }
+        
         .rating input {
             display: none;
         }
+        
         .rating label {
             cursor: pointer;
-            width: 30px;
-            height: 30px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ddd;
+            background: #f8f9fa;
             border-radius: 50%;
             font-weight: bold;
+            transition: all 0.2s ease;
+            margin: 0;
+            color: #6c757d;
         }
-        .rating input:checked ~ label,
+        
+        .rating input:checked ~ label {
+            background: #ffc107;
+            color: #212529;
+            transform: scale(1.1);
+        }
+        
         .rating label:hover,
         .rating label:hover ~ label {
-            background: #ffcc00;
+            background: #ffc107;
+            color: #212529;
         }
-        button {
-            background: #28a745;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            transition: 0.3s;
+        
+        .form-label {
+            font-weight: 600;
+            color: #495057;
         }
-        button:hover {
-            background: #218838;
+        
+        .history-item {
+            border-left: 4px solid #0d6efd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 0.375rem;
+        }
+        
+        .timestamp {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        .star-rating-display {
+            color: #ffc107;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <div class="feedback-form">
-        <h1>Product Feedback</h1>
-        <form action="#" method="POST">
-            <div class="form-group">
-                <label for="name">Name (Optional):</label>
-                <input type="text" id="name" name="name">
-            </div>
-            <div class="form-group">
-                <label for="email">Email (Optional):</label>
-                <input type="email" id="email" name="email">
-            </div>
-            <div class="form-group">
-                <label>Rating:</label>
-                <div class="rating">
-                    <input type="radio" id="star5" name="rating" value="5" required><label for="star5">5</label>
-                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">4</label>
-                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">3</label>
-                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">2</label>
-                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">1</label>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <!-- Main Feedback Form -->
+                <div class="feedback-form" id="feedbackFormContainer">
+                    <h2 class="text-center mb-4">Student Feedback</h2>
+                    <form id="feedbackForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name (Optional):</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email (Optional):</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label text-center d-block">Rating:</label>
+                            <div class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">5</label>
+                                <input type="radio" id="star4" name="rating" value="4"><label for="star4">4</label>
+                                <input type="radio" id="star3" name="rating" value="3"><label for="star3">3</label>
+                                <input type="radio" id="star2" name="rating" value="2"><label for="star2">2</label>
+                                <input type="radio" id="star1" name="rating" value="1"><label for="star1">1</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questions" class="form-label">Questions/Feedback:</label>
+                            <textarea class="form-control" id="questions" name="questions" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="comments" class="form-label">Additional Comments (Optional):</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit Feedback</button>
+                            <button type="button" id="historyBtn" class="btn btn-outline-secondary">
+                                <i class="bi bi-clock-history me-2"></i>View Feedback History
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Feedback History Container (Hidden by default) -->
+                <div class="feedback-form d-none" id="historyContainer">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="mb-0">Feedback History</h2>
+                        <button type="button" id="backToFormBtn" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Form
+                        </button>
+                    </div>
+                    <div id="feedbackHistory">
+                        <!-- Feedback history items will be inserted here by JavaScript -->
+                        <div class="text-center text-muted py-5" id="noHistoryMessage">
+                            <i class="bi bi-inbox-fill d-block mb-3" style="font-size: 2.5rem;"></i>
+                            <p>No feedback history yet.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="questions">Questions/Feedback:</label>
-                <textarea id="questions" name="questions" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="comments">Additional Comments (Optional):</label>
-                <textarea id="comments" name="comments" rows="3"></textarea>
-            </div>
-            <button type="submit">Submit Feedback</button>
-        </form>
+        </div>
     </div>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize feedback history from localStorage
+            let feedbackHistory = JSON.parse(localStorage.getItem('feedbackHistory')) || [];
+            
+            // Form submission handler
+            $('#feedbackForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = $('#name').val() || 'Anonymous';
+                const email = $('#email').val() || 'Not provided';
+                const rating = $('input[name="rating"]:checked').val();
+                const questions = $('#questions').val();
+                const comments = $('#comments').val() || 'None';
+                const timestamp = new Date().toLocaleString();
+                
+                // Create feedback object
+                const feedbackItem = {
+                    name,
+                    email,
+                    rating,
+                    questions,
+                    comments,
+                    timestamp
+                };
+                
+                // Add to history and save to localStorage
+                feedbackHistory.unshift(feedbackItem);
+                localStorage.setItem('feedbackHistory', JSON.stringify(feedbackHistory));
+                
+                // Show success message
+                alert('Feedback submitted successfully!');
+                
+                // Reset form
+                $('#feedbackForm')[0].reset();
+                
+                // Update history display if it's visible
+                updateHistoryDisplay();
+            });
+            
+            // Toggle between form and history view
+            $('#historyBtn').on('click', function() {
+                $('#feedbackFormContainer').addClass('d-none');
+                $('#historyContainer').removeClass('d-none');
+                updateHistoryDisplay();
+            });
+            
+            $('#backToFormBtn').on('click', function() {
+                $('#historyContainer').addClass('d-none');
+                $('#feedbackFormContainer').removeClass('d-none');
+            });
+            
+            // Function to update history display
+            function updateHistoryDisplay() {
+                const historyContainer = $('#feedbackHistory');
+                
+                // Clear previous content
+                historyContainer.html('');
+                
+                if (feedbackHistory.length === 0) {
+                    // Show no history message
+                    historyContainer.html(`
+                        <div class="text-center text-muted py-5" id="noHistoryMessage">
+                            <i class="bi bi-inbox-fill d-block mb-3" style="font-size: 2.5rem;"></i>
+                            <p>No feedback history yet.</p>
+                        </div>
+                    `);
+                    return;
+                }
+                
+                // Add each feedback item to the history display
+                feedbackHistory.forEach(function(item) {
+                    const stars = '<i class="bi bi-star-fill"></i>'.repeat(parseInt(item.rating));
+                    
+                    historyContainer.append(`
+                        <div class="history-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="mb-1">${item.name}</h5>
+                                <span class="timestamp"><i class="bi bi-clock me-1"></i>${item.timestamp}</span>
+                            </div>
+                            <div class="star-rating-display mb-2">${stars}</div>
+                            <p class="mb-1"><strong>Feedback:</strong> ${item.questions}</p>
+                            <p class="mb-0"><strong>Additional Comments:</strong> ${item.comments}</p>
+                        </div>
+                    `);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
