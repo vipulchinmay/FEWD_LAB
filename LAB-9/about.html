@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoShop - About Us</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      .page-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("/api/placeholder/1200/300");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 100px 0;
+      }
+
+      .team-member {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: none;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .team-member img {
+        transition: transform 0.5s;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .team-member:hover img {
+        transform: scale(1.05);
+      }
+
+      .team-social-links a {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+        color: #198754;
+        transition: all 0.3s;
+      }
+
+      .team-social-links a:hover {
+        background-color: #198754;
+        color: white;
+      }
+
+      .team-bio {
+        height: 80px;
+        overflow: hidden;
+      }
+
+      footer {
+        background-color: #212529;
+        color: white;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        bottom: 0;
+        width: 2px;
+        margin-left: -1px;
+        background-color: #198754;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 50px;
+      }
+
+      .timeline-badge {
+        position: absolute;
+        left: 50%;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        margin-left: -30px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #198754;
+        color: white;
+        z-index: 100;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .timeline-item:hover .timeline-badge {
+        transform: scale(1.1);
+      }
+
+      .timeline-panel {
+        position: relative;
+        width: 46%;
+        float: left;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: transform 0.3s;
+      }
+
+      .timeline-item:hover .timeline-panel {
+        transform: translateX(-5px);
+      }
+
+      .timeline-panel::after {
+        content: "";
+        position: absolute;
+        top: 24px;
+        right: -14px;
+        width: 0;
+        height: 0;
+        border-top: 14px solid transparent;
+        border-bottom: 14px solid transparent;
+        border-left: 14px solid white;
+      }
+
+      .timeline-item:nth-child(even) .timeline-panel {
+        float: right;
+      }
+
+      .timeline-item:nth-child(even):hover .timeline-panel {
+        transform: translateX(5px);
+      }
+
+      .timeline-item:nth-child(even) .timeline-panel::after {
+        left: -14px;
+        right: auto;
+        border-left: 0;
+        border-right: 14px solid white;
+      }
+
+      .timeline-heading h4 {
+        margin-top: 0;
+        font-weight: 600;
+      }
+
+      .timeline-body p {
+        margin-bottom: 0;
+      }
+
+      .value-card {
+        transition: transform 0.3s;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .value-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .value-icon {
+        transition: transform 0.3s;
+      }
+
+      .value-card:hover .value-icon {
+        transform: scale(1.2);
+      }
+
+      .cert-item {
+        transition: transform 0.3s;
+      }
+
+      .cert-item:hover {
+        transform: scale(1.05);
+      }
+
+      .bg-eco-light {
+        background-color: #f8f9fa;
+      }
+
+      .bg-eco-green {
+        background-color: #f0f7f4;
+      }
+
+      .text-eco-green {
+        color: #198754;
+      }
+
+      .btn-eco {
+        background-color: #198754;
+        border-color: #198754;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .btn-eco:hover {
+        background-color: #146c43;
+        border-color: #146c43;
+        color: white;
+      }
+
+      .social-hover {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+        color: #198754;
+        transition: all 0.3s;
+      }
+
+      .social-hover:hover {
+        transform: translateY(-3px);
+        background-color: #198754;
+        color: white;
+        box-shadow: 0 5px 15px rgba(25, 135, 84, 0.2);
+      }
+
+      .team-member .badge {
+        transition: all 0.3s;
+      }
+
+      .team-member:hover .badge {
+        transform: scale(1.1);
+      }
+
+      .bg-eco-green {
+        background-color: #f0f7f4;
+      }
+
+      .modal-content {
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      .modal-header.bg-eco-green {
+        background-color: #198754 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="Home.html">
+          <i class="bi bi-leaf me-2"></i>
+          <span>EcoShop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="Home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gallery.html">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="partners.html">Partners</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+          <button
+            class="btn btn-eco"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+          >
+            <i class="bi bi-person me-1"></i> Login
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login to Your Account</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                />
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="rememberMe"
+                />
+                <label class="form-check-label" for="rememberMe"
+                  >Remember me</label
+                >
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-eco">Login</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <p class="mb-0">
+              Don't have an account?
+              <a href="#" class="text-decoration-none text-eco-green"
+                >Register here</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header text-center">
+      <div class="container">
+        <h1 class="display-3 fw-bold">About Us</h1>
+        <p class="lead fs-4 mt-3">
+          Learn about our mission, our story, and the team behind EcoShop
+        </p>
+        <div class="mt-4">
+          <a href="contact.html" class="btn btn-outline-light btn-lg"
+            >Get in Touch</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Our Story -->
+    <section class="py-5 bg-eco-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2 class="display-5 fw-bold mb-4 text-eco-green">Our Story</h2>
+            <p class="lead fs-4">
+              Founded in 2020, EcoShop began with a simple idea: make
+              sustainable living accessible to everyone.
+            </p>
+            <p>
+              Our founder, Emma Chen, was frustrated by the lack of affordable,
+              high-quality eco-friendly products in the market. Most sustainable
+              alternatives were either too expensive or difficult to find,
+              creating barriers for people who wanted to reduce their
+              environmental footprint.
+            </p>
+            <p>
+              Starting with just 5 products in her garage, Emma built EcoShop
+              into what it is today - a trusted source for sustainable everyday
+              items that don't compromise on quality or affordability.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="rounded-3 overflow-hidden shadow-lg">
+              <img
+                src="/images/earth.webp"
+                alt="Our Story"
+                class="img-fluid w-100"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Mission -->
+    <section class="py-5 bg-eco-green">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <h2 class="display-5 fw-bold mb-4 text-eco-green">Our Mission</h2>
+            <p class="lead fs-4">
+              We believe that small changes, when made by many, create massive
+              positive impact.
+            </p>
+            <p>
+              Our mission is to empower consumers to make eco-conscious choices
+              by providing sustainable alternatives to everyday products. We're
+              committed to:
+            </p>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-eco-green me-2"></i>
+                Sourcing materials ethically and sustainably
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-eco-green me-2"></i>
+                Reducing waste throughout our supply chain
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-eco-green me-2"></i>
+                Educating our community about environmental issues
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-eco-green me-2"></i>
+                Supporting environmental initiatives worldwide
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-check-circle-fill text-eco-green me-2"></i>
+                Creating a transparent business model
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="rounded-3 overflow-hidden shadow-lg">
+              <img
+                src="/images/eco.webp"
+                alt="Our Mission"
+                class="img-fluid w-100"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Journey -->
+    <section class="py-5 bg-eco-light">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-3 text-eco-green">
+          Our Journey
+        </h2>
+        <p class="text-center lead mb-5">
+          Our path to creating a more sustainable future
+        </p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <i class="bi bi-star-fill fs-4"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="text-eco-green">2020</h4>
+              </div>
+              <div class="timeline-body">
+                <p>
+                  EcoShop founded by Emma Chen with just 5 products sold online
+                  from her garage.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <i class="bi bi-people-fill fs-4"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="text-eco-green">2021</h4>
+              </div>
+              <div class="timeline-body">
+                <p>
+                  Grew to a team of 10 and expanded our product line to include
+                  50+ sustainable items.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <i class="bi bi-shop fs-4"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="text-eco-green">2022</h4>
+              </div>
+              <div class="timeline-body">
+                <p>
+                  Opened our first physical store and launched our plastic-free
+                  packaging initiative.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <i class="bi bi-globe2 fs-4"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="text-eco-green">2023</h4>
+              </div>
+              <div class="timeline-body">
+                <p>
+                  Expanded to international shipping and launched our
+                  carbon-neutral delivery program.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <i class="bi bi-award-fill fs-4"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="text-eco-green">2024</h4>
+              </div>
+              <div class="timeline-body">
+                <p>
+                  Received B Corp certification and launched our community
+                  sustainability workshops.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <i class="bi bi-graph-up-arrow fs-4"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="text-eco-green">2025</h4>
+              </div>
+              <div class="timeline-body">
+                <p>
+                  Continuing to grow our impact with new partnerships and
+                  innovative products.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--Meet Our Team-->
+    <section class="py-5 bg-eco-green">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-3 text-eco-green">
+          Meet Our Team
+        </h2>
+        <p class="text-center lead mb-5">
+          The passionate individuals driving our mission forward
+        </p>
+
+        <div class="row g-4">
+          <!-- Emma Chen -->
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 team-member shadow">
+              <div class="position-relative overflow-hidden">
+                <img
+                  src="/images/e.jpg"
+                  class="card-img-top"
+                  alt="Emma Chen"
+                />
+                <div
+                  class="position-absolute bottom-0 start-0 w-100 text-center p-3"
+                  style="
+                    background: linear-gradient(
+                      transparent,
+                      rgba(0, 0, 0, 0.7)
+                    );
+                  "
+                >
+                  <h5 class="card-title text-white mb-0">Emma Chen</h5>
+                  <p class="text-white-50 mb-0">Founder & CEO</p>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="team-bio mb-3">
+                  <p class="card-text">
+                    Passionate about making sustainable living accessible to
+                    everyone. Emma's vision and leadership have guided EcoShop
+                    from a small startup to an influential force in sustainable
+                    retail.
+                  </p>
+                </div>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-eco-green">
+                      <span class="badge bg-eco-green text-white me-2"
+                        >Leadership</span
+                      >
+                      <span class="badge bg-eco-green text-white">Vision</span>
+                    </div>
+                    <button
+                      class="btn btn-sm btn-outline-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#emmaModal"
+                    >
+                      Read More
+                    </button>
+                  </div>
+                  <div
+                    class="team-social-links d-flex justify-content-center gap-2 mt-3"
+                  >
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-linkedin"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-twitter"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-envelope"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Michael Rodriguez -->
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 team-member shadow">
+              <div class="position-relative overflow-hidden">
+                <img
+                  src="/images/n.jpg"
+                  class="card-img-top"
+                  alt="Michael Rodriguez"
+                />
+                <div
+                  class="position-absolute bottom-0 start-0 w-100 text-center p-3"
+                  style="
+                    background: linear-gradient(
+                      transparent,
+                      rgba(0, 0, 0, 0.7)
+                    );
+                  "
+                >
+                  <h5 class="card-title text-white mb-0">Michael Rodriguez</h5>
+                  <p class="text-white-50 mb-0">Head of Product Development</p>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="team-bio mb-3">
+                  <p class="card-text">
+                    Focused on innovative, sustainable product solutions. With a
+                    background in materials science, Michael leads our efforts
+                    to create products that minimize environmental impact.
+                  </p>
+                </div>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-eco-green">
+                      <span class="badge bg-eco-green text-white me-2"
+                        >Innovation</span
+                      >
+                      <span class="badge bg-eco-green text-white">Design</span>
+                    </div>
+                    <button
+                      class="btn btn-sm btn-outline-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#michaelModal"
+                    >
+                      Read More
+                    </button>
+                  </div>
+                  <div
+                    class="team-social-links d-flex justify-content-center gap-2 mt-3"
+                  >
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-linkedin"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-twitter"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-envelope"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sarah Johnson -->
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 team-member shadow">
+              <div class="position-relative overflow-hidden">
+                <img
+                  src="/images/s.jpg"
+                  class="card-img-top"
+                  alt="Sarah Johnson"
+                />
+                <div
+                  class="position-absolute bottom-0 start-0 w-100 text-center p-3"
+                  style="
+                    background: linear-gradient(
+                      transparent,
+                      rgba(0, 0, 0, 0.7)
+                    );
+                  "
+                >
+                  <h5 class="card-title text-white mb-0">Sarah Johnson</h5>
+                  <p class="text-white-50 mb-0">Sustainability Director</p>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="team-bio mb-3">
+                  <p class="card-text">
+                    Ensures our operations maintain the highest ecological
+                    standards. Sarah oversees our environmental impact
+                    assessments and implements strategies to reduce our carbon
+                    footprint.
+                  </p>
+                </div>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-eco-green">
+                      <span class="badge bg-eco-green text-white me-2"
+                        >Ecology</span
+                      >
+                      <span class="badge bg-eco-green text-white"
+                        >Research</span
+                      >
+                    </div>
+                    <button
+                      class="btn btn-sm btn-outline-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#sarahModal"
+                    >
+                      Read More
+                    </button>
+                  </div>
+                  <div
+                    class="team-social-links d-flex justify-content-center gap-2 mt-3"
+                  >
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-linkedin"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-twitter"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-envelope"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- David Kim -->
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 team-member shadow">
+              <div class="position-relative overflow-hidden">
+                <img
+                  src="/images/m.jpg"
+                  class="card-img-top"
+                  alt="David Kim"
+                />
+                <div
+                  class="position-absolute bottom-0 start-0 w-100 text-center p-3"
+                  style="
+                    background: linear-gradient(
+                      transparent,
+                      rgba(0, 0, 0, 0.7)
+                    );
+                  "
+                >
+                  <h5 class="card-title text-white mb-0">David Kim</h5>
+                  <p class="text-white-50 mb-0">Community Outreach Manager</p>
+                </div>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <div class="team-bio mb-3">
+                  <p class="card-text">
+                    Connects EcoShop with communities and environmental
+                    initiatives. David builds partnerships with local
+                    organizations and manages our education and outreach
+                    programs.
+                  </p>
+                </div>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="text-eco-green">
+                      <span class="badge bg-eco-green text-white me-2"
+                        >Community</span
+                      >
+                      <span class="badge bg-eco-green text-white"
+                        >Education</span
+                      >
+                    </div>
+                    <button
+                      class="btn btn-sm btn-outline-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#davidModal"
+                    >
+                      Read More
+                    </button>
+                  </div>
+                  <div
+                    class="team-social-links d-flex justify-content-center gap-2 mt-3"
+                  >
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-linkedin"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-twitter"></i
+                    ></a>
+                    <a href="#" class="social-hover"
+                      ><i class="bi bi-envelope"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <a href="#" class="btn btn-eco btn-lg"
+            >Join Our Team <i class="bi bi-arrow-right ms-2"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Member Modals -->
+    <!-- Emma Chen Modal -->
+    <div class="modal fade" id="emmaModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 bg-eco-green text-white">
+            <h5 class="modal-title">Emma Chen</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <img
+                  src="/images/e.jpg"
+                  class="img-fluid rounded"
+                  alt="Emma Chen"
+                />
+              </div>
+              <div class="col-md-8">
+                <h5 class="mb-1 text-eco-green">Founder & CEO</h5>
+                <p class="text-muted mb-3">With EcoShop since 2020</p>
+                <p>
+                  With a background in environmental science and business
+                  management, Emma founded EcoShop after identifying a
+                  significant gap in the market for affordable sustainable
+                  products. Her leadership philosophy centers on balancing
+                  ecological responsibility with business growth.
+                </p>
+                <p>
+                  Prior to EcoShop, Emma worked as a sustainability consultant
+                  for Fortune 500 companies, giving her unique insights into
+                  creating scalable environmental solutions.
+                </p>
+                <div class="mt-3">
+                  <h6 class="text-eco-green">Expertise</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-light text-dark"
+                      >Sustainable Business</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Environmental Policy</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Green Supply Chain</span
+                    >
+                    <span class="badge bg-light text-dark">Eco Innovation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a href="#" class="btn btn-eco">Contact Emma</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Michael Rodriguez Modal -->
+    <div class="modal fade" id="michaelModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 bg-eco-green text-white">
+            <h5 class="modal-title">Michael Rodriguez</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <img
+                  src="/images/n.jpg"
+                  class="img-fluid rounded"
+                  alt="Michael Rodriguez"
+                />
+              </div>
+              <div class="col-md-8">
+                <h5 class="mb-1 text-eco-green">Head of Product Development</h5>
+                <p class="text-muted mb-3">With EcoShop since 2021</p>
+                <p>
+                  Michael leads our product development team with a focus on
+                  innovation and sustainability. With a Ph.D. in Materials
+                  Science from MIT, he specializes in developing biodegradable
+                  alternatives to conventional plastics and other
+                  environmentally harmful materials.
+                </p>
+                <p>
+                  Michael has filed five patents for eco-friendly materials and
+                  manufacturing processes since joining EcoShop, revolutionizing
+                  how we approach product creation.
+                </p>
+                <div class="mt-3">
+                  <h6 class="text-eco-green">Expertise</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-light text-dark"
+                      >Materials Science</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Circular Design</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Product Innovation</span
+                    >
+                    <span class="badge bg-light text-dark">Bioplastics</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a href="#" class="btn btn-eco">Contact Michael</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sarah Johnson Modal -->
+    <div class="modal fade" id="sarahModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 bg-eco-green text-white">
+            <h5 class="modal-title">Sarah Johnson</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <img
+                  src="/images/s.jpg"
+                  class="img-fluid rounded"
+                  alt="Sarah Johnson"
+                />
+              </div>
+              <div class="col-md-8">
+                <h5 class="mb-1 text-eco-green">Sustainability Director</h5>
+                <p class="text-muted mb-3">With EcoShop since 2021</p>
+                <p>
+                  Sarah oversees all aspects of EcoShop's environmental impact
+                  and sustainability initiatives. With a background in
+                  environmental engineering and policy, she develops and
+                  implements strategies to reduce our ecological footprint
+                  across all operations.
+                </p>
+                <p>
+                  Under Sarah's guidance, EcoShop achieved carbon neutrality in
+                  2023 and is working toward becoming carbon negative by 2026
+                  through innovative offset programs and operational changes.
+                </p>
+                <div class="mt-3">
+                  <h6 class="text-eco-green">Expertise</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-light text-dark"
+                      >Carbon Accounting</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Environmental Policy</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Sustainable Supply Chain</span
+                    >
+                    <span class="badge bg-light text-dark">ESG Reporting</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a href="#" class="btn btn-eco">Contact Sarah</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- David Kim Modal -->
+    <div class="modal fade" id="davidModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 bg-eco-green text-white">
+            <h5 class="modal-title">David Kim</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <img
+                  src="/images/m.jpg"
+                  class="img-fluid rounded"
+                  alt="David Kim"
+                />
+              </div>
+              <div class="col-md-8">
+                <h5 class="mb-1 text-eco-green">Community Outreach Manager</h5>
+                <p class="text-muted mb-3">With EcoShop since 2022</p>
+                <p>
+                  David manages EcoShop's community engagement and education
+                  initiatives. With a background in environmental education and
+                  community organizing, he builds partnerships with schools,
+                  nonprofits, and local governments to spread sustainable
+                  practices.
+                </p>
+                <p>
+                  David's workshop series "Small Changes, Big Impact" has
+                  reached over 10,000 participants across the country, inspiring
+                  communities to adopt more eco-conscious lifestyles.
+                </p>
+                <div class="mt-3">
+                  <h6 class="text-eco-green">Expertise</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-light text-dark"
+                      >Community Engagement</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Environmental Education</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Partnership Development</span
+                    >
+                    <span class="badge bg-light text-dark"
+                      >Public Speaking</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a href="#" class="btn btn-eco">Contact David</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Values -->
+    <section class="py-5 bg-eco-light">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-3 text-eco-green">
+          Our Values
+        </h2>
+        <p class="text-center lead mb-5">
+          The principles that guide everything we do
+        </p>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm value-card">
+              <div class="card-body text-center p-4">
+                <div class="mb-3">
+                  <i
+                    class="bi bi-globe text-eco-green value-icon"
+                    style="font-size: 3rem"
+                  ></i>
+                </div>
+                <h4 class="mb-3">Sustainability</h4>
+                <p>
+                  We prioritize the planet in every decision we make, from
+                  sourcing materials to shipping products.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm value-card">
+              <div class="card-body text-center p-4">
+                <div class="mb-3">
+                  <i
+                    class="bi bi-arrow-repeat text-eco-green value-icon"
+                    style="font-size: 3rem"
+                  ></i>
+                </div>
+                <h4 class="mb-3">Circularity</h4>
+                <p>
+                  We design products with their entire lifecycle in mind, aiming
+                  to eliminate waste and pollution.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm value-card">
+              <div class="card-body text-center p-4">
+                <div class="mb-3">
+                  <i
+                    class="bi bi-lightbulb text-eco-green value-icon"
+                    style="font-size: 3rem"
+                  ></i>
+                </div>
+                <h4 class="mb-3">Innovation</h4>
+                <p>
+                  We constantly seek new ways to improve our products and reduce
+                  their environmental impact.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm value-card">
+              <div class="card-body text-center p-4">
+                <div class="mb-3">
+                  <i
+                    class="bi bi-people text-eco-green value-icon"
+                    style="font-size: 3rem"
+                  ></i>
+                </div>
+                <h4 class="mb-3">Community</h4>
+                <p>
+                  We believe in the power of community to drive positive
+                  environmental change.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm value-card">
+              <div class="card-body text-center p-4">
+                <div class="mb-3">
+                  <i
+                    class="bi bi-shield-check text-eco-green value-icon"
+                    style="font-size: 3rem"
+                  ></i>
+                </div>
+                <h4 class="mb-3">Transparency</h4>
+                <p>
+                  We're open about our products, processes, and impact to build
+                  trust with our customers.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm value-card">
+              <div class="card-body text-center p-4">
+                <div class="mb-3">
+                  <i
+                    class="bi bi-heart text-eco-green value-icon"
+                    style="font-size: 3rem"
+                  ></i>
+                </div>
+                <h4 class="mb-3">Compassion</h4>
+                <p>
+                  We care deeply about the planet, its inhabitants, and the
+                  future generations who will inherit it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="py-5 bg-eco-green">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-3 text-eco-green">
+          Our Certifications
+        </h2>
+        <p class="text-center lead mb-5">
+          Recognized for our commitment to sustainability
+        </p>
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div
+              class="row row-cols-2 row-cols-md-4 g-4 justify-content-center"
+            >
+              <div class="col text-center cert-item">
+                <div
+                  class="bg-white rounded-circle p-3 shadow mx-auto mb-3"
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    src="/images/b.jpg"
+                    alt="B Corp Certified"
+                    class="img-fluid"
+                  />
+                </div>
+                <h5 class="fw-bold">B Corp Certified</h5>
+                <p class="small text-muted">
+                  Meeting the highest standards of social and environmental
+                  performance
+                </p>
+              </div>
+              <div class="col text-center cert-item">
+                <div
+                  class="bg-white rounded-circle p-3 shadow mx-auto mb-3"
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    src="/images/c.jpg"
+                    alt="Climate Neutral"
+                    class="img-fluid"
+                  />
+                </div>
+                <h5 class="fw-bold">Climate Neutral</h5>
+                <p class="small text-muted">
+                  Measuring, reducing, and offsetting all carbon emissions
+                </p>
+              </div>
+              <div class="col text-center cert-item">
+                <div
+                  class="bg-white rounded-circle p-3 shadow mx-auto mb-3"
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    src="/images/p.jpg"
+                    alt="1% For The Planet"
+                    class="img-fluid"
+                  />
+                </div>
+                <h5 class="fw-bold">1% For The Planet</h5>
+                <p class="small text-muted">
+                  Donating 1% of sales to environmental nonprofits
+                </p>
+              </div>
+              <div class="col text-center cert-item">
+                <div
+                  class="bg-white rounded-circle p-3 shadow mx-auto mb-3"
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    src="/images/plastic.jpg"
+                    alt="Plastic Free"
+                    class="img-fluid"
+                  />
+                </div>
+                <h5 class="fw-bold">Plastic Free</h5>
+                <p class="small text-muted">
+                  Committed to eliminating plastic from our products and
+                  packaging
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-eco-light">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-3 text-eco-green">
+          What People Say
+        </h2>
+        <p class="text-center lead mb-5">
+          Hear from our customers and partners
+        </p>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="mb-3 text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="card-text mb-4">
+                  "EcoShop has completely changed how I approach everyday
+                  purchases. Their products are high-quality, affordable, and
+                  genuinely eco-friendly. I love knowing that I'm making a
+                  positive impact with every purchase."
+                </p>
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <img
+                      src="/api/placeholder/50/50"
+                      alt="Customer"
+                      class="rounded-circle"
+                      width="50"
+                    />
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-0">Jessica T.</h6>
+                    <small class="text-muted">Loyal Customer</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="mb-3 text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="card-text mb-4">
+                  "As a business partner, I've been impressed by EcoShop's
+                  commitment to sustainability at every level. Their
+                  transparency and dedication to ethical sourcing sets a new
+                  standard for the industry."
+                </p>
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <img
+                      src="/api/placeholder/50/50"
+                      alt="Partner"
+                      class="rounded-circle"
+                      width="50"
+                    />
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-0">Mark R.</h6>
+                    <small class="text-muted">Supplier Partner</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="mb-3 text-warning">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="card-text mb-4">
+                  "EcoShop's workshop program has been transformative for our
+                  community. They don't just sell products; they educate and
+                  inspire people to make lasting sustainable changes in their
+                  lives."
+                </p>
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <img
+                      src="/api/placeholder/50/50"
+                      alt="Community Partner"
+                      class="rounded-circle"
+                      width="50"
+                    />
+                  </div>
+                  <div class="flex-grow-1 ms-3">
+                    <h6 class="mb-0">Amara L.</h6>
+                    <small class="text-muted">Community Organizer</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-5 bg-eco-green">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+              <div class="card-body p-5 text-center">
+                <h3 class="mb-3 text-eco-green">Stay Connected</h3>
+                <p class="mb-4">
+                  Join our newsletter for sustainable living tips, product
+                  updates, and exclusive offers.
+                </p>
+                <form class="row g-3">
+                  <div class="col-md-8">
+                    <input
+                      type="email"
+                      class="form-control form-control-lg"
+                      placeholder="Your email address"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <button type="submit" class="btn btn-eco btn-lg w-100">
+                      Subscribe
+                    </button>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check text-start">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="privacyCheck"
+                        required
+                      />
+                      <label class="form-check-label small" for="privacyCheck">
+                        I agree to receive emails from EcoShop and accept the
+                        <a href="#" class="text-eco-green">privacy policy</a>.
+                      </label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">EcoShop</h5>
+            <p class="text-white-50">
+              Making sustainable living accessible to everyone through
+              high-quality, affordable eco-friendly products.
+            </p>
+            <div class="d-flex gap-3 mt-4">
+              <a href="#" class="text-white-50 hover-text-white">
+                <i class="bi bi-facebook fs-5"></i>
+              </a>
+              <a href="#" class="text-white-50 hover-text-white">
+                <i class="bi bi-instagram fs-5"></i>
+              </a>
+              <a href="#" class="text-white-50 hover-text-white">
+                <i class="bi bi-twitter fs-5"></i>
+              </a>
+              <a href="#" class="text-white-50 hover-text-white">
+                <i class="bi bi-linkedin fs-5"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Quick Links</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="Home.html" class="text-white-50 text-decoration-none"
+                  >Home</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="about.html" class="text-white-50 text-decoration-none"
+                  >About Us</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="products.html"
+                  class="text-white-50 text-decoration-none"
+                  >Products</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="gallery.html"
+                  class="text-white-50 text-decoration-none"
+                  >Gallery</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="partners.html"
+                  class="text-white-50 text-decoration-none"
+                  >Partners</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="contact.html"
+                  class="text-white-50 text-decoration-none"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Customer Service</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-white-50 text-decoration-none">FAQs</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Shipping Policy</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Returns & Exchanges</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5 class="text-white mb-4">Contact Us</h5>
+            <ul class="list-unstyled text-white-50">
+              <li class="mb-2">
+                <i class="bi bi-geo-alt me-2"></i>123 Green Street, EcoCity
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone me-2"></i>(555) 123-4567
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-envelope me-2"></i>info@ecoshop.com
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-clock me-2"></i>Mon-Fri: 9AM-6PM
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4 bg-white-50" />
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start">
+            <p class="text-white-50 small mb-0">
+              © 2025 EcoShop. All rights reserved.
+            </p>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <p class="text-white-50 small mb-0">
+              <i class="bi bi-heart-fill text-danger me-1"></i> Made with care
+              for the planet
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="py-3 mt-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        <div class="container text-center">
+          <p class="text-white-50 small mb-0">
+            Sustainable. Ethical. Responsible.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+      // Animation on scroll
+      document.addEventListener("DOMContentLoaded", function () {
+        const animateItems = document.querySelectorAll(
+          ".timeline-item, .team-member, .value-card, .cert-item"
+        );
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = "translateY(0)";
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        animateItems.forEach((item) => {
+          item.style.opacity = 0;
+          item.style.transform = "translateY(20px)";
+          item.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+          observer.observe(item);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoShop - Partners</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
+    <style>
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("/api/placeholder/1200/400");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 100px 0;
+      }
+
+      .partner-logo {
+        transition: transform 0.3s;
+      }
+
+      .partner-logo:hover {
+        transform: scale(1.05);
+      }
+
+      footer {
+        background-color: #212529;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar (same as Home.html) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+          <a class="navbar-brand" href="Home.html">EcoShop</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="Home.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="products.html">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gallery.html">Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="partners.html">Partners</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+            </ul>
+            <button
+              class="btn btn-outline-light"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              <i class="bi bi-person"></i> Login
+            </button>
+          </div>
+        </div>
+      </nav>
+
+    <!-- Login Modal (same as Home.html) -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Login to Your Account</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="email" required />
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    required
+                  />
+                </div>
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="rememberMe"
+                  />
+                  <label class="form-check-label" for="rememberMe"
+                    >Remember me</label
+                  >
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <p class="mb-0">
+                Don't have an account?
+                <a href="#" class="text-decoration-none">Register here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center">
+      <div class="container">
+        <h1 class="display-4 fw-bold">Our Partners</h1>
+        <p class="lead">Collaborating for a sustainable future</p>
+      </div>
+    </header>
+
+    <!-- Partners Section -->
+    <section class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Eco-Friendly Partnerships</h2>
+        <div class="row g-4">
+          <div class="col-md-4 col-sm-6">
+            <div class="card h-100 partner-logo">
+              <img
+                src="/images/image.png"
+                class="card-img-top"
+                alt="Partner 1"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Green Materials Co.</h5>
+                <p class="card-text">
+                  Supplying sustainable raw materials for our products.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="card h-100 partner-logo">
+              <img
+                src="/images/eco.webp"
+                class="card-img-top"
+                alt="Partner 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Eco Packaging Solutions</h5>
+                <p class="card-text">
+                  Providing plastic-free packaging for all our shipments.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="card h-100 partner-logo">
+              <img
+                src="/images/power.webp"
+                class="card-img-top"
+                alt="Partner 3"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Clean Energy Partners</h5>
+                <p class="card-text">
+                  Powering our operations with 100% renewable energy.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Add more partner cards as needed -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Partnership Benefits -->
+    <section class="bg-light py-5">
+      <div class="container">
+        <h2 class="text-center mb-4">Benefits of Partnering with EcoShop</h2>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="text-center">
+              <i class="bi bi-globe fs-1 text-primary mb-3"></i>
+              <h5>Global Reach</h5>
+              <p>Access to our worldwide customer base</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="text-center">
+              <i class="bi bi-award fs-1 text-primary mb-3"></i>
+              <h5>Eco Certification</h5>
+              <p>Joint eco-friendly product certifications</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="text-center">
+              <i class="bi bi-graph-up fs-1 text-primary mb-3"></i>
+              <h5>Sustainable Growth</h5>
+              <p>Collaborative eco-innovation projects</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="text-center">
+              <i class="bi bi-heart fs-1 text-primary mb-3"></i>
+              <h5>Positive Impact</h5>
+              <p>Joint initiatives for environmental causes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Become a Partner CTA -->
+    <section class="py-5 bg-primary text-white">
+      <div class="container text-center">
+        <h2 class="mb-4">Become an EcoShop Partner</h2>
+        <p class="lead mb-4">
+          Join us in our mission to create a more sustainable world
+        </p>
+        <a href="contact.html" class="btn btn-light btn-lg"
+          >Contact Us to Partner</a
+        >
+      </div>
+    </section>
+
+    <!-- Footer (same as Home.html) -->
+    <footer class="py-4">
+      <!-- ... (copy footer content from Home.html) ... -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

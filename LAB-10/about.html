@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - E-Commerce</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+      .about-section {
+        background-color: #f8f9fa;
+        padding: 50px 0;
+      }
+      .team-member {
+        transition: transform 0.3s ease;
+      }
+      .team-member:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation (Same as index.html) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="Home.html">
+          <i class="bi bi-shop me-2"></i>E-Shop
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="Home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="about.html">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="partners.html">Partners</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- About Us Section -->
+    <div class="about-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Our Story</h2>
+            <p>
+              We are a family-owned business dedicated to providing high-quality
+              products and exceptional customer service. Founded in 2020, E-Shop
+              has grown from a small local store to an online marketplace
+              serving customers nationwide.
+            </p>
+            <p>
+              Our mission is to make shopping convenient, enjoyable, and
+              affordable for everyone.
+            </p>
+          </div>
+          <div class="col-md-6">
+            <img
+              src="/images/eco.webp"
+              alt="Our Story"
+              class="img-fluid rounded"
+            />
+          </div>
+        </div>
+
+        <div class="row mt-5 text-center">
+          <h3 class="mb-4">Our Team</h3>
+          <div class="col-md-4 team-member">
+            <img
+              src="/images/m.jpg"
+              class="rounded-circle mb-3"
+              alt="Team Member 1"
+            />
+            <h4>John Doe</h4>
+            <p>Founder & CEO</p>
+          </div>
+          <div class="col-md-4 team-member">
+            <img
+              src="/images/n.jpg"
+              class="rounded-circle mb-3"
+              alt="Team Member 2"
+            />
+            <h4>Jane Smith</h4>
+            <p>Chief Operations Officer</p>
+          </div>
+          <div class="col-md-4 team-member">
+            <img
+              src="/images/s.jpg"
+              class="rounded-circle mb-3"
+              alt="Team Member 3"
+            />
+            <h4>Mike Johnson</h4>
+            <p>Head of Customer Service</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer (Same as index.html) -->
+    <footer class="bg-dark text-white text-center py-4">
+      <div class="container">
+        <p class="mb-0">© 2025 E-Shop. All rights reserved.</p>
+        <div class="social-links mt-3">
+          <a href="#" class="text-white mx-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white mx-2"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-white mx-2"
+            ><i class="bi bi-instagram"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/css/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

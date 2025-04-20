@@ -1,0 +1,860 @@
+import { View, StyleSheet, Alert, Text, Animated, Easing, Image, TouchableOpacity, SafeAreaView, StatusBar, Platform, Dimensions } from "react-native";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "expo-router";
+import ImageViewer from "@/components/ImageViewer";
+import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from '@react-navigation/native';
+import { useLanguage } from "@/components/LanguageContext";
+import translations from "@/components/translation";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import { MaterialCommunityIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
+import LottieView from 'lottie-react-native';
+import { SharedElement } from 'react-navigation-shared-element';
+import { MotiView } from 'moti';
+
+const { width, height } = Dimensions.get('window');
+
+export default function Index() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [abortController, setAbortController] = useState<AbortController | null>(null);
+  const router = useRouter();
+  const navigation = useNavigation();
+  const { language } = useLanguage();
+  const lottieRef = useRef<LottieView>(null);
+
+  // Translation helper function
+  const t = (key: string) => translations[language]?.[key] || key;
+
+  // Enhanced animations
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const welcomeAnim = useRef(new Animated.Value(0)).current;
+  const buttonScale = useRef(new Animated.Value(1)).current;
+  const buttonOpacity = useRef(new Animated.Value(1)).current;
+  const imageSlideUp = useRef(new Animated.Value(50)).current;
+  const imageScale = useRef(new Animated.Value(0.95)).current;
+  const logoScale = useRef(new Animated.Value(0.8)).current;
+  const logoRotate = useRef(new Animated.Value(0)).current;
+  const actionButtonScale = useRef(new Animated.Value(0)).current;
+  const blurIntensity = useRef(new Animated.Value(0)).current;
+  const headerSlide = useRef(new Animated.Value(-50)).current;
+
+  // Button hover effects
+  const [cameraButtonHover, setCameraButtonHover] = useState(false);
+  const [galleryButtonHover, setGalleryButtonHover] = useState(false);
+  const [analyzeButtonHover, setAnalyzeButtonHover] = useState(false);
+
+  // Start rotation animation for loading spinner
+  useEffect(() => {
+    if (loading) {
+      if (lottieRef.current) {
+        lottieRef.current.play();
+      }
+    } else {
+      if (lottieRef.current) {
+        lottieRef.current.reset();
+      }
+    }
+  }, [loading]);
+
+  // Enhanced staggered welcome animation sequence
+  useEffect(() => {
+    // First wave of animations
+    Animated.sequence([
+      Animated.timing(headerSlide, {
+        toValue: 0,
+        duration: 600,
+        easing: Easing.out(Easing.back(1.7)),
+        useNativeDriver: true,
+      }),
+      Animated.parallel([
+        Animated.timing(logoScale, {
+          toValue: 1,
+          duration: 800,
+          easing: Easing.elastic(1.2),
+          useNativeDriver: true,
+        }),
+        Animated.timing(logoRotate, {
+          toValue: 1,
+          duration: 1200,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.timing(welcomeAnim, {
+        toValue: 1,
+        duration: 800,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
+    ]).start();
+    
+    // Second wave with delay for buttons
+    Animated.timing(buttonOpacity, {
+      toValue: 1,
+      duration: 600,
+      delay: 1200,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+    
+    // Request camera permissions on component mount
+    (async () => {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert(t('Permission Needed'), t('Camera permission is needed to take photos'));
+      }
+    })();
+  }, []);
+
+  // Enhanced image selected animation
+  useEffect(() => {
+    if (selectedImage) {
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 600,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.timing(imageSlideUp, {
+          toValue: 0,
+          duration: 600,
+          easing: Easing.out(Easing.back(1.5)),
+          useNativeDriver: true,
+        }),
+        Animated.timing(imageScale, {
+          toValue: 1,
+          duration: 600,
+          easing: Easing.out(Easing.back(1.5)),
+          useNativeDriver: true,
+        }),
+        Animated.timing(blurIntensity, {
+          toValue: 30,
+          duration: 600,
+          useNativeDriver: false,
+        }),
+        Animated.timing(actionButtonScale, {
+          toValue: 1,
+          duration: 500,
+          delay: 300,
+          easing: Easing.elastic(1.2),
+          useNativeDriver: true,
+        })
+      ]).start();
+      
+      // Provide haptic feedback when image is selected
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    } else {
+      // Reset animations when image is cleared
+      Animated.parallel([
+        Animated.timing(blurIntensity, {
+          toValue: 0,
+          duration: 400,
+          useNativeDriver: false,
+        }),
+        Animated.timing(actionButtonScale, {
+          toValue: 0,
+          duration: 300,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        })
+      ]).start();
+    }
+  }, [selectedImage]);
+
+  // Enhanced button press animations
+  const animateButtonPressIn = (setHoverState: (state: boolean) => void) => {
+    setHoverState(true);
+    Animated.parallel([
+      Animated.spring(buttonScale, {
+        toValue: 0.94,
+        friction: 5,
+        tension: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonOpacity, {
+        toValue: 0.92,
+        duration: 100,
+        useNativeDriver: true,
+      })
+    ]).start();
+    
+    // Light haptic feedback on button press
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  };
+
+  const animateButtonPressOut = (setHoverState: (state: boolean) => void) => {
+    setHoverState(false);
+    Animated.parallel([
+      Animated.spring(buttonScale, {
+        toValue: 1,
+        friction: 4,
+        tension: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonOpacity, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      })
+    ]).start();
+  };
+
+  const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(
+        t("Permission Denied"),
+        t("You need to grant gallery access to select a photo.")
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+      presentationStyle: Platform.OS === 'ios' ? 'pageSheet' : undefined,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
+  };
+
+  const takePhoto = async () => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        Alert.alert(
+          t("Permission Denied"),
+          t("You need to grant camera access to take a photo.")
+        );
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0.8,
+        presentationStyle: Platform.OS === 'ios' ? 'fullScreen' : undefined,
+      });
+      
+      if (!result.canceled) {
+        setSelectedImage(result.assets[0].uri);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      }
+    } catch (error) {
+      console.error("Error taking picture:", error);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(t("Error"), t("Failed to take photo. Please try again."));
+    }
+  };
+
+  const abortProcessing = () => {
+    if (abortController) {
+      abortController.abort();
+      setLoading(false);
+      setAbortController(null);
+      
+      // Provide error haptic feedback
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      Alert.alert(t("Processing Aborted"), t("Image processing has been stopped."));
+    }
+  };
+
+  const scanImage = async () => {
+    if (!selectedImage) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(t("No Image Selected"), t("Please choose or take a photo first."));
+      return;
+    }
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    const controller = new AbortController();
+    setAbortController(controller);
+    setLoading(true);
+
+    try {
+      const response = await fetch(selectedImage, { signal: controller.signal });
+      const blob = await response.blob();
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+
+      reader.onloadend = async () => {
+        const base64Image = reader.result.split(",")[1];
+
+        // Send the selected language along with the image
+        const serverResponse = await fetch("http://172.16.30.163:5000/scan", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            image: base64Image,
+            language: language
+          }),
+          signal: controller.signal,
+        });
+
+        const data = await serverResponse.json();
+        setLoading(false);
+
+        if (data.error) {
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+          Alert.alert(t("Error"), t("Failed to extract medicine details."));
+          return;
+        }
+
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        navigation.navigate("Schedule", {
+          raw_response: data.raw_response,
+        });
+      };
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.log("Image processing was aborted.");
+      } else {
+        console.error("Error scanning image:", error);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        Alert.alert(t("Error"), t("Something went wrong while scanning."));
+      }
+      setLoading(false);
+    }
+  };
+
+  // Animation interpolations
+  const logoRotateInterpolation = logoRotate.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '10deg']
+  });
+
+  // Background gradient effect that changes when image is selected
+  const gradientColors = selectedImage 
+    ? ['#0F2027', '#203A43', '#2C5364'] 
+    : ['#0F0C29', '#302B63', '#24243e'];
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="light-content" backgroundColor="#0F0C29" />
+      <LinearGradient
+        colors={gradientColors}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientBackground}
+      >
+        {/* Floating header */}
+        <Animated.View 
+          style={[
+            styles.headerContainer,
+            { 
+              transform: [{ translateY: headerSlide }],
+              opacity: selectedImage ? 0.7 : 1
+            }
+          ]}
+        >
+          <Animated.Text style={styles.headerText}>{t("AushadX")}</Animated.Text>
+          <TouchableOpacity 
+            style={styles.languageButton}
+            onPress={() => {
+              // Toggle language logic would go here
+              Haptics.selectionAsync();
+            }}
+          >
+            <Text style={styles.languageButtonText}>{language.toUpperCase()}</Text>
+          </TouchableOpacity>
+        </Animated.View>
+
+        <View style={styles.container}>
+          {!selectedImage ? (
+            <Animated.View 
+              style={[
+                styles.welcomeContainer, 
+                { 
+                  opacity: welcomeAnim,
+                  transform: [{ translateY: welcomeAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [20, 0]
+                  })}]
+                }
+              ]}
+            >
+              <Animated.View style={{
+                transform: [
+                  { scale: logoScale },
+                  { rotate: logoRotateInterpolation }
+                ]
+              }}>
+                <Image 
+                  source={require('@/assets/images/icon.png')} 
+                  style={styles.logo} 
+                  resizeMode="contain"
+                />
+              </Animated.View>
+              <Text style={styles.appTitle}>{t("AushadX")}</Text>
+              <Text style={styles.welcomeText}>
+                {t("Capture and analyze your medicine with a tap")}
+              </Text>
+
+              <MotiView
+                from={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: 'timing', duration: 1000, delay: 1500 }}
+                style={styles.featureContainer}
+              >
+                <View style={styles.featureItem}>
+                  <Ionicons name="scan-circle-outline" size={24} color="#a2daff" />
+                  <Text style={styles.featureText}>{t("Smart Recognition")}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Ionicons name="time-outline" size={24} color="#a2daff" />
+                  <Text style={styles.featureText}>{t("Schedule Reminders")}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Ionicons name="alarm-outline" size={24} color="#a2daff" />
+                  <Text style={styles.featureText}>{t("Dose Alerts")}</Text>
+                </View>
+              </MotiView>
+            </Animated.View>
+          ) : (
+            <SharedElement id={`image.view`} style={styles.imageWrapper}>
+              <Animated.View 
+                style={[
+                  styles.imageContainer, 
+                  { 
+                    opacity: fadeAnim,
+                    transform: [
+                      { translateY: imageSlideUp },
+                      { scale: imageScale }
+                    ] 
+                  }
+                ]}
+              >
+                <ImageViewer imgSource={selectedImage} />
+                <LinearGradient
+                  colors={['rgba(0,0,0,0.5)', 'transparent', 'transparent', 'rgba(0,0,0,0.5)']}
+                  style={styles.imageGradientOverlay}
+                />
+                
+                <TouchableOpacity 
+                  style={styles.resetButton}
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    setSelectedImage(null);
+                  }}
+                >
+                  <BlurView intensity={20} tint="dark" style={styles.resetButtonBlur}>
+                    <Ionicons name="close" size={22} color="white" />
+                  </BlurView>
+                </TouchableOpacity>
+              </Animated.View>
+            </SharedElement>
+          )}
+
+          <Animated.View 
+            style={[
+              styles.footerContainer, 
+              { 
+                opacity: buttonOpacity,
+                transform: [{ scale: buttonScale }]
+              }
+            ]}
+          >
+            <Animated.View style={styles.blurContainer}>
+              <BlurView 
+                intensity={blurIntensity.__getValue()} 
+                tint="dark" 
+                style={styles.blurOverlay}
+              >
+                <View style={styles.buttonGroup}>
+                  <Animated.View style={[
+                    styles.buttonContainer,
+                    { transform: [{ scale: !selectedImage ? 1 : 0.95 }] }
+                  ]}>
+                    <TouchableOpacity 
+                      style={[
+                        styles.cameraButton,
+                        cameraButtonHover && styles.buttonHover
+                      ]}
+                      onPress={takePhoto}
+                      onPressIn={() => animateButtonPressIn(setCameraButtonHover)}
+                      onPressOut={() => animateButtonPressOut(setCameraButtonHover)}
+                      disabled={loading}
+                      activeOpacity={0.85}
+                    >
+                      <LinearGradient
+                        colors={['#007AFF', '#0055CC']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}
+                      >
+                        <Ionicons name="camera" size={22} color="#ffffff" />
+                        <Text style={styles.buttonText}>{t("Take Photo")}</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </Animated.View>
+                  
+                  <Animated.View style={[
+                    styles.buttonContainer,
+                    { transform: [{ scale: !selectedImage ? 1 : 0.95 }] }
+                  ]}>
+                    <TouchableOpacity 
+                      style={[
+                        styles.galleryButton,
+                        galleryButtonHover && styles.buttonHover
+                      ]}
+                      onPress={pickImage}
+                      onPressIn={() => animateButtonPressIn(setGalleryButtonHover)}
+                      onPressOut={() => animateButtonPressOut(setGalleryButtonHover)}
+                      disabled={loading}
+                      activeOpacity={0.85}
+                    >
+                      <LinearGradient
+                        colors={['#5856D6', '#3634A3']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}
+                      >
+                        <Ionicons name="images" size={22} color="#ffffff" />
+                        <Text style={styles.buttonText}>{t("Gallery")}</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </Animated.View>
+                </View>
+                
+                {selectedImage && (
+                  <Animated.View 
+                    style={[
+                      styles.actionButtonsContainer, 
+                      { 
+                        transform: [{ scale: actionButtonScale }],
+                      }
+                    ]}
+                  >
+                    <TouchableOpacity
+                      style={[
+                        styles.analyzeButton,
+                        analyzeButtonHover && styles.buttonHover,
+                        loading && styles.analyzeButtonDisabled
+                      ]}
+                      onPress={scanImage}
+                      onPressIn={() => animateButtonPressIn(setAnalyzeButtonHover)}
+                      onPressOut={() => animateButtonPressOut(setAnalyzeButtonHover)}
+                      disabled={loading || !selectedImage}
+                      activeOpacity={0.85}
+                    >
+                      <LinearGradient
+                        colors={['#34C759', '#2A9D48']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.buttonGradient}
+                      >
+                        {loading ? (
+                          <View style={styles.loadingContainer}>
+                            <LottieView
+                              ref={lottieRef}
+                              source={require('@/assets/animations/scanning-animation.json')}
+                              style={styles.lottieAnimation}
+                              autoPlay={false}
+                              loop={true}
+                            />
+                            <Text style={styles.loadingText}>{t("Processing...")}</Text>
+                          </View>
+                        ) : (
+                          <>
+                            <MaterialCommunityIcons name="text-recognition" size={22} color="white" />
+                            <Text style={styles.analyzeButtonText}>{t("Analyze Photo")}</Text>
+                          </>
+                        )}
+                      </LinearGradient>
+                    </TouchableOpacity>
+                    
+                    {loading && (
+                      <MotiView
+                        from={{ opacity: 0, translateY: 10 }}
+                        animate={{ opacity: 1, translateY: 0 }}
+                        transition={{ type: 'timing', duration: 300 }}
+                      >
+                        <TouchableOpacity 
+                          style={styles.abortButton} 
+                          onPress={abortProcessing}
+                          activeOpacity={0.9}
+                        >
+                          <LinearGradient
+                            colors={['#FF3B30', '#CF2F26']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={styles.abortButtonGradient}
+                          >
+                            <Ionicons name="stop-circle" size={18} color="white" />
+                            <Text style={styles.abortButtonText}>{t("Cancel")}</Text>
+                          </LinearGradient>
+                        </TouchableOpacity>
+                      </MotiView>
+                    )}
+                  </Animated.View>
+                )}
+              </BlurView>
+            </Animated.View>
+          </Animated.View>
+        </View>
+      </LinearGradient>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#0F0C29", // Deep purple/blue for status bar bleed
+  },
+  gradientBackground: {
+    flex: 1,
+    width: '100%',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight! + 8 : 10,
+    paddingBottom: 10,
+    paddingHorizontal: 20,
+    zIndex: 10,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#ffffff",
+    letterSpacing: 0.5,
+  },
+  languageButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 16,
+  },
+  languageButtonText: {
+    color: "#ffffff",
+    fontWeight: "600",
+    fontSize: 12,
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingTop: 10,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+  welcomeContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 20,
+  },
+  logo: {
+    width: 110,
+    height: 110,
+    marginBottom: 20,
+    borderRadius: 55,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
+  },
+  appTitle: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: "#ffffff",
+    marginBottom: 16,
+    letterSpacing: 0.8,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 1, height: 2 },
+    textShadowRadius: 4,
+  },
+  welcomeText: {
+    fontSize: 18,
+    color: "#e0e0e0",
+    textAlign: "center",
+    lineHeight: 26,
+    maxWidth: "80%",
+    marginBottom: 30,
+  },
+  featureContainer: {
+    marginTop: 30,
+    width: '90%',
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+  },
+  featureText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 12,
+  },
+  imageWrapper: {
+    width: width * 0.9,
+    height: height * 0.5,
+    marginVertical: 24,
+  },
+  imageContainer: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 28,
+    overflow: "hidden",
+    backgroundColor: "#2c2c2c",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.6,
+    shadowRadius: 20,
+    elevation: 16,
+  },
+  imageGradientOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: 28,
+    zIndex: 5,
+  },
+  resetButton: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+    zIndex: 10,
+  },
+  resetButtonBlur: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  footerContainer: {
+    width: "100%",
+    paddingHorizontal: 16,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 28,
+  },
+  blurContainer: {
+    borderRadius: 32,
+    overflow: 'hidden',
+    backgroundColor: "rgba(40, 40, 40, 0)",
+  },
+  blurOverlay: {
+    borderRadius: 32,
+    overflow: "hidden",
+    padding: 20,
+    backgroundColor: "rgba(40, 40, 40, 0.2)",
+  },
+  buttonGroup: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 16,
+    marginBottom: 16,
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+  buttonGradient: {
+    borderRadius: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 8,
+    width: '100%',
+    height: '100%',
+  },
+  cameraButton: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    shadowColor: "#007AFF",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  galleryButton: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    shadowColor: "#5856D6",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  buttonHover: {
+    transform: [{ scale: 0.98 }],
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontWeight: "700",
+    fontSize: 16,
+    letterSpacing: 0.3,
+  },
+  actionButtonsContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 12,
+  },
+  analyzeButton: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    width: "100%",
+    shadowColor: "#34C759",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  analyzeButtonDisabled: {
+    opacity: 0.7,
+  },
+  analyzeButtonText: {
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 18,
+    letterSpacing: 0.5,
+  },
+  loadingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  lottieAnimation: {
+    width: 32,
+    height: 32,
+  },
+  loadingText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 18,
+  },
+  abortButton: {
+    borderRadius: 20,
+    marginTop: 16,
+    overflow: 'hidden',
+    shadowColor: "#FF3B30",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOp
